@@ -52,6 +52,18 @@ public class BirdScript : MonoBehaviour
 
 
         UpdateWings(isWingsDown);
+
+        if (transform.position.y < -12 || transform.position.y > 13)
+        {
+            SetIsBirdDead();
+        }
+    }
+
+    private void SetIsBirdDead()
+    {
+        logicScript.GameOver();
+        isBirdAlive = false;
+        particleSystem.Pause();
     }
 
     private void UpdateWings(bool isWingsDown)
@@ -62,8 +74,6 @@ public class BirdScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        logicScript.GameOver();
-        isBirdAlive = false;
-        particleSystem.Pause();
+        SetIsBirdDead();
     }
 }
