@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BirdScript : MonoBehaviour
 {
@@ -7,16 +8,19 @@ public class BirdScript : MonoBehaviour
     public LogicScript logicScript;
     public bool isBirdAlive = true;
 
+    private InputAction jumpAction;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         logicScript = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
+        jumpAction = InputSystem.actions.FindAction("Jump");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isBirdAlive)
+        if (jumpAction.IsPressed() && isBirdAlive)
         {
             myRigidbody.linearVelocity = Vector2.up * flapStrength;
         }
