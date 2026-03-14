@@ -38,15 +38,13 @@ public class BirdScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (jumpAction.IsPressed() && isBirdAlive)
+    {        
+        if (jumpAction.WasPressedThisFrame() && isBirdAlive)
         {
             myRigidbody.linearVelocity = Vector2.up * flapStrength;
             isWingsDown = true;
-            if (!audio.isPlaying)
-            {
-                audio.PlayOneShot(jumpSound);
-            }
+            audio.PlayOneShot(jumpSound);
+
         }
 
         if (isWingsDown)
