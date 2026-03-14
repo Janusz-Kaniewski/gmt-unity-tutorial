@@ -18,12 +18,20 @@ public class BirdScript : MonoBehaviour
     private InputAction jumpAction;
     private ParticleSystem particleSystem;
 
+    private AudioSource audio;
+    public AudioClip jumpSound;
+    public AudioClip hitSound;
+
+    private bool isHitSoundPlayed = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         logicScript = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
         particleSystem = GameObject.FindGameObjectWithTag("ParticleSystem").GetComponent<ParticleSystem>();
         jumpAction = InputSystem.actions.FindAction("Jump");
+
+        audio = GetComponent<AudioSource>();
 
         UpdateWings(isWingsDown);
     }
@@ -35,6 +43,10 @@ public class BirdScript : MonoBehaviour
         {
             myRigidbody.linearVelocity = Vector2.up * flapStrength;
             isWingsDown = true;
+            if (!audio.isPlaying)
+            {
+                audio.PlayOneShot(jumpSound);
+            }
         }
 
         if (isWingsDown)
@@ -64,6 +76,12 @@ public class BirdScript : MonoBehaviour
         logicScript.GameOver();
         isBirdAlive = false;
         particleSystem.Pause();
+
+        if (!isHitSoundPlayed)
+        {
+            audio.PlayOneShot(hitSound);
+            isHitSoundPlayed = true;
+        }
     }
 
     private void UpdateWings(bool isWingsDown)

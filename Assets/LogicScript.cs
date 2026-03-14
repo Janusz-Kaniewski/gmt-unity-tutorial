@@ -12,11 +12,15 @@ public class LogicScript : MonoBehaviour
     private BirdScript birdScript;
     private bool isHighScoreSaved = false;
 
+    private AudioSource audio;
+    public AudioClip getPointSound;
+
     [ContextMenu("Increase Score")]
     public void AddScore(int scoreToAdd)
     {
         playerScore += scoreToAdd;
         scoreText.text = $"Score: {playerScore.ToString()}";
+        audio.PlayOneShot(getPointSound);
     }
 
     public void RestartGame()
@@ -33,6 +37,7 @@ public class LogicScript : MonoBehaviour
     void Start()
     {
         birdScript = GameObject.FindGameObjectWithTag("Bird").GetComponent<BirdScript>();
+        audio = GetComponent<AudioSource>();
 
         if (PlayerPrefs.HasKey("highscore"))
         {
