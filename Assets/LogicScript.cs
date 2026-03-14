@@ -28,6 +28,11 @@ public class LogicScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void ToTileScreen()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+
     public void GameOver()
     {
         gameOverScreen.SetActive(true);
