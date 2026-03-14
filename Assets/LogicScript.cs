@@ -36,7 +36,8 @@ public class LogicScript : MonoBehaviour
 
         if (PlayerPrefs.HasKey("highscore"))
         {
-            highScoreText.text = $"High score: {PlayerPrefs.GetInt("highscore")}";
+            highScore = PlayerPrefs.GetInt("highscore");
+            highScoreText.text = $"High score: {highScore}";
         }
     }
 
