@@ -9,11 +9,13 @@ public class BirdScript : MonoBehaviour
     public bool isBirdAlive = true;
 
     private InputAction jumpAction;
+    private ParticleSystem particleSystem;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         logicScript = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
+        particleSystem = GameObject.FindGameObjectWithTag("ParticleSystem").GetComponent<ParticleSystem>();
         jumpAction = InputSystem.actions.FindAction("Jump");
     }
 
@@ -30,5 +32,6 @@ public class BirdScript : MonoBehaviour
     {
         logicScript.GameOver();
         isBirdAlive = false;
+        particleSystem.Pause();
     }
 }
